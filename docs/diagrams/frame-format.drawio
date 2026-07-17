@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="rkKi7d5sMGk12wNZnr0j">
+    <mxGraphModel dx="1030" dy="583" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DlsZgjJHewZxVLKXEEok-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Start&lt;div&gt;1 bit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Sync&lt;div&gt;3 bits&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="350" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Word SIze&lt;div&gt;4 bits&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="470" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Word&lt;div&gt;1-16 bits&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="590" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Parity Enable&lt;div&gt;1 bit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="710" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Parity&lt;div&gt;1 bit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="830" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DlsZgjJHewZxVLKXEEok-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillStyle=solid;fillColor=light-dark(#FFFFFF,#FFFFFF);fontColor=light-dark(#000000,#000000);fontStyle=1;strokeColor=light-dark(#000000,#000000);strokeWidth=2;" value="Stop&lt;div&gt;1 bit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="950" y="270" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

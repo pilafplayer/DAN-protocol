@@ -1,0 +1,13 @@
+Example 1:
+
+Payload:
+11001010
+
+Frame:
+
+START
+101
+0111
+01010110
+10
+STOP

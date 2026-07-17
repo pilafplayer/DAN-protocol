@@ -23,6 +23,20 @@ The protocol was designed to be:
 
 ---
 
+## Frame Format
+
+![DAN01 Frame](docs/diagrams/frame-format.svg)
+
+---
+
+## Timing Diagram
+
+Transmitting the 8-bit value `01010110` with parity enabled:
+
+![Timing Diagram](docs/diagrams/timing-diagram.svg)
+
+---
+
 ## Features
 
 - Two-wire interface (`DATA` + `GND`)
