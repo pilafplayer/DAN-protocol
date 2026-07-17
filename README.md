@@ -68,6 +68,12 @@ Current specification version:
 
 This protocol is currently under development. Breaking changes may occur until version 1.0.
 
+--- 
+
+MIT License
+
+Copyright (c) 2026 Daniel S. Amaral
+
 ---
 
 ## License
