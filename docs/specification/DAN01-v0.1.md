@@ -99,7 +99,7 @@ The Synchronization Pattern allows the receiver to determine the transmitter bit
 
 The field consists of a fixed 3-bit 101 sequence:
 
-![Timing Diagram](docs/diagrams/timing-diagram.svg)
+![Timing Diagram](../diagrams/timing-diagram.svg)
 
 
 The transmitter shall maintain a constant bit period during the entire frame transmission.
@@ -240,7 +240,7 @@ For example, an 8-bit Word with the value:
 
 01010110
 
-![Timing Diagram](docs\diagrams\word-diagram.svg)
+![Word Diagram](../diagrams/word-diagram.svg)
 
 0 → 1 → 0 → 1 → 0 → 1 → 1 → 0 
 
