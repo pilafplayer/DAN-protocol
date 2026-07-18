@@ -215,7 +215,7 @@ After the synchronization process is completed, all bits within the frame shall 
 
 The Word Size field defines only the length of the Word field.
 
-The following fields are independent of the Word Size value:
+The following fields are independent of the Word Size value:  
 
 - Parity field
 - Stop field
@@ -238,7 +238,7 @@ The Word field shall be transmitted most significant bit first (MSB first).
 
 For example, an 8-bit Word with the value:
 
-01010110
+Word = 01010110<sub>2</sub>
 
 ![Word Diagram](../diagrams/word-diagram.svg)
 
@@ -286,7 +286,50 @@ When P_EN is set to 0, the parity bit is ignored by the receiver.
 
 ## 5.6 Stop
 
+The Stop field indicates the end of a DAN frame transmission.
+
+The Stop field consists of a single logical HIGH (`1`) bit transmitted after the Parity field.
+
+The Stop field duration shall be equal to one transmitter bit period:
+
+$$
+T_{stop}=T_{bit}
+$$
+
+During the Stop field, the DATA line shall remain at logical HIGH.
+
+The receiver shall sample the Stop field at the center of its bit period.
+
+A valid frame termination is detected when the sampled Stop bit is logical HIGH (`1`).
+
+If the sampled Stop bit is logical LOW (`0`), the receiver shall mark the frame as invalid and discard the received frame.
+
+A Stop field error shall be treated as a frame termination error.
+
+After a valid Stop field has been detected, the transmitter may keep the DATA line at logical HIGH, which corresponds to the Idle state.
+
+The receiver shall return to the Idle state after processing the Stop field.
+
+
 # 6. Receiver Operation
+
+## 6.1 Receiver State Machine
+
+## 6.2 Idle State
+
+## 6.3 Start Detection
+
+## 6.4 Synchronization Measurement
+
+## 6.5 Word Size Reception
+
+## 6.6 Word Reception
+
+## 6.7 Parity Verification
+
+## 6.8 Stop Verification
+
+## 6.9 Return to Idle
 
 # 7. Transmitter Operation
 

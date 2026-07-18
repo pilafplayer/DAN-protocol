@@ -23,6 +23,13 @@ The protocol was designed to be:
 
 ---
 
+## Specification
+
+The complete technical specification is available here:
+
+- **[DAN Protocol Specification v0.1 Draft](docs/specification/DAN01-v0.1.md)**
+
+---
 ## Features
 
 - Two-wire interface (`DATA` + `GND`)
