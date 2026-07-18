@@ -12,7 +12,7 @@
 
 DAN is a unidirectional lightweight serial communication protocol designed for embedded systems.
 
-Unlike UART, DAN does not require both devices to share a predefined baud rate. Instead, every transmitted frame contains a synchronization pattern that allows the receiver to estimate the bit period before decoding the remaining data.
+Unlike conventional asynchronous serial links that require transmitter and receiver to share communication parameters (e.g. UART), DAN does not rely on a predefined baud rate, predefined word size and a predefined parity enabling shared between transmitter and receiver. 
 
 The protocol was designed to be:
 

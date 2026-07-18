@@ -16,13 +16,13 @@ Copyright © 2026 Daniel Amaral
 
 DAN is a unidirectional lightweight asynchronous serial communication protocol designed for embedded systems requiring minimal hardware resources. The protocol operates over a single data line and a common ground reference, using a synchronization sequence embedded within each frame to recover the transmitter's bit period. 
 
-Its purpuse is to be a simple and _"Plug n' Play"_ protocol, without further presetting.
+The protocol is intended to minimize implementation complexity while eliminating the need for preconfigured communication parameters such as baud rate, payload length and parity configuration.
 
 # 1. Introduction
 
 DAN is an asynchronous serial communication protocol designed for embedded systems where simplicity and minimal hardware requirements are priorities.
 
-Unlike conventional asynchronous protocols such as UART, DAN does not rely on a predefined baud rate, predefined word size and a predefined parity enabling shared between transmitter and receiver.
+Unlike conventional asynchronous serial links that require transmitter and receiver to share communication parameters (e.g. UART), DAN does not rely on a predefined baud rate, predefined word size and a predefined parity enabling shared between transmitter and receiver.
 
 Instead, each frame contains a synchronization pattern that allows the receiver to determine the transmitter bit period dynamically. 
 
@@ -132,7 +132,7 @@ $$
 
 where:
 
-- \(T_{bit}\) is the estimated duration of one transmitted bit.
+- T<sub>bit</sub> is the estimated duration of one transmitted bit.
 
 ### Receiver Sampling Reference
 
@@ -168,16 +168,20 @@ If the sampled third synchronization bit is different from logical `1`, the rece
 
 A synchronization fault shall be handled in the same manner as a parity verification failure.
 
-## 5.3 Word Size
 
-## 5.3 Word Size Field
+## 5.3 Word Size 
 
 The Word Size field defines the number of bits contained in the Word field.
 
 The field has a fixed length of 4 bits and is transmitted immediately after the Synchronization Pattern field.
 
-The Word Size field uses a linear binary encoding, where the represented payload length is equal to the field value plus one. This is so that we will have 16 possible values, as 0 can't possibly be a word size.
+The Word Size field uses a linear binary encoding, where: 
 
+$$
+Word_{Length}=Word_{Size} + 1
+$$
+
+This encoding permits all sixteen possible 4-bit values to represent valid payload lengths, as 0000 can't represent a payload with 0 as its length.
 The encoding is defined as:
 
 | Word Size Field | Word Length |
@@ -236,7 +240,7 @@ For example, an 8-bit Word with the value:
 
 01010110
 
-![Timing Diagram](docs\diagrams\word-diagram.png)
+![Timing Diagram](docs\diagrams\word-diagram.svg)
 
 0 → 1 → 0 → 1 → 0 → 1 → 1 → 0 
 
