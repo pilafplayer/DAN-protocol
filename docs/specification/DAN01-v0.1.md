@@ -120,9 +120,9 @@ $$
 
 where:
 
-- \(T_{R1}\) is the timestamp of the first rising edge.
-- \(T_{R2}\) is the timestamp of the second rising edge.
-- \(T_{sync}\) represents two bit periods.
+- T<sub>R1</sub> is the timestamp of the first rising edge.
+- T<sub>R2</sub> is the timestamp of the second rising edge.
+- T<sub>sync</sub> represents two bit periods.
 
 The transmitter bit period shall be calculated as:
 
