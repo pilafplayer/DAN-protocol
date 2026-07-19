@@ -282,7 +282,7 @@ When Parity Enable (P_EN) is set to 1, the transmitter calculates the parity bit
 
 The parity bit is selected so that the total number of logical HIGH bits in the Word field plus the parity bit is even.
 
-When P_EN is set to 0, the parity bit is ignored by the receiver.
+When P_EN is set to 0, the parity bit shall be ignored by the receiver.
 
 ## 5.6 Stop
 
@@ -312,9 +312,59 @@ The receiver shall return to the Idle state after processing the Stop field.
 
 # 6. Receiver Operation
 
+# 6. Receiver Operation
+
 ## 6.1 General Receiver Requirements
 
+A DAN receiver shall continuously monitor the DATA line while the bus is in the idle condition.
+
+Whenever a valid Start condition is detected, the receiver shall initiate a new frame reception.
+
+Each received frame shall be processed independently. The receiver shall not retain synchronization parameters, timing information, or any other frame-specific information after frame reception has completed. The receiver shall not keep the clock timins and other informations in order to allow the transmitter to change any of these parameters at any given time, without having to specify again to the receiver on what conditions it is working at.
+
+For every received frame, the receiver shall perform the following operations in the specified order:
+
+1. Detect the Start field.
+2. Recover the transmitter bit period from the Synchronization Pattern.
+3. Receive and decode the Word Size field.
+4. Receive the Word field.
+5. If parity verification is enabled, verify the received parity.
+6. Verify the Stop field.
+7. Complete frame reception.
+
+The receiver shall treat every received frame as one of the following:
+
+- Valid;
+- Valid with parity error;
+- Invalid.
+
+A frame shall be considered **Valid** when all mandatory fields are successfully received and verified.
+
+A frame shall be considered **Valid with parity error (PE)** when all mandatory fields are successfully received and verified, but parity verification fails.
+
+A frame shall be considered **Invalid** whenever any mandatory protocol requirement is violated, including but not limited to:
+
+- Invalid Synchronization Pattern;
+- Invalid Stop field;
+- Any other protocol violation defined by this specification.
+
+Invalid frames shall be discarded.
+
+Frames containing parity errors shall not be discarded solely because of the parity error. The received Word shall remain available together with an indication that parity verification failed.
+
+Upon completion of frame reception, regardless of the reception result, the receiver shall return to the idle condition and wait for the next valid Start condition.
+
 ## 6.2 Start Detection
+
+The receiver shall continuously monitor the DATA line while in the idle condition.
+
+A Start condition shall be detected upon the occurrence of a HIGH-to-LOW transition on the DATA line, as defined in Section 5.1.
+
+Upon detecting a valid Start condition, the receiver shall immediately begin the frame reception procedure.
+
+A frame shall not be considered valid solely because a Start condition has been detected. Frame validity shall only be established after successful synchronization and verification of the subsequent mandatory fields (Frame Validity will be covered in Section 9).
+
+Immediately following the Start field, the receiver shall begin the synchronization procedure defined in Section 6.3.
 
 ## 6.3 Synchronization
 
@@ -332,7 +382,7 @@ The receiver shall return to the Idle state after processing the Stop field.
 
 # 8. Timing Requirements
 
-# 9. Error Handling
+# 9. Frame Validity and Error Handling
 
 # 10. Examples
 
