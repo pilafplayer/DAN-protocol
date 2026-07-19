@@ -310,26 +310,23 @@ After a valid Stop field has been detected, the transmitter may keep the DATA li
 
 The receiver shall return to the Idle state after processing the Stop field.
 
-
 # 6. Receiver Operation
 
-## 6.1 Receiver State Machine
+## 6.1 General Receiver Requirements
 
-## 6.2 Idle State
+## 6.2 Start Detection
 
-## 6.3 Start Detection
+## 6.3 Synchronization
 
-## 6.4 Synchronization Measurement
+## 6.4 Word Size Reception
 
-## 6.5 Word Size Reception
+## 6.5 Word Reception
 
-## 6.6 Word Reception
+## 6.6 Parity Verification
 
-## 6.7 Parity Verification
+## 6.7 Stop Verification
 
-## 6.8 Stop Verification
-
-## 6.9 Return to Idle
+## 6.8 Error Recovery
 
 # 7. Transmitter Operation
 
