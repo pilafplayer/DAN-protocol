@@ -312,8 +312,6 @@ The receiver shall return to the Idle state after processing the Stop field.
 
 # 6. Receiver Operation
 
-# 6. Receiver Operation
-
 ## 6.1 General Receiver Requirements
 
 A DAN receiver shall continuously monitor the DATA line while the bus is in the idle condition.
