@@ -25,9 +25,9 @@ The protocol was designed to be:
 
 ## Specification
 
-The complete technical specification is available here:
+### The complete technical specification is available here:
 
-- **[DAN Protocol Specification v0.1 Draft](docs/specification/DAN-v0.1.md)**
+- ### **[DAN Protocol Specification v0.1 Draft](docs/specification/DAN-v0.1.md)**
 
 ---
 ## Features
