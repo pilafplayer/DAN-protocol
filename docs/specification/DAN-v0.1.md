@@ -30,7 +30,7 @@ The protocol uses a single data line and a common ground reference, enabling com
 
 # 2. Design Goals
 
-The main design goals of DAN#01 are:
+The main design goals of DAN are:
 
 - Minimal physical wiring requirements.
 - Simple implementation and no shared presets required.
@@ -41,7 +41,7 @@ The main design goals of DAN#01 are:
 
 # 3. Physical Layer
 
-DAN#01 uses a two-wire physical interface:
+DAN uses a two-wire physical interface:
 
 | Signal | Description |
 |---|---|
