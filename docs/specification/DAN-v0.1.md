@@ -366,7 +366,61 @@ Immediately following the Start field, the receiver shall begin the synchronizat
 
 ## 6.3 Synchronization
 
+Following detection of a Start condition, the receiver shall begin the synchronization procedure by monitoring the DATA line for the Synchronization Pattern defined in Section 5.2.
+
+The receiver shall identify the first LOW-to-HIGH transition of the Synchronization Pattern and record its occurrence as T<sub>R1</sub>. The next LOW-to-HIGH transition shall be recorded as T<sub>R2</sub>. HIGH-to-LOW transitions shall not be considered during synchronization and shall not be used for bit period recovery.
+
+Upon detection of T<sub>R2</sub>, the receiver shall determine the transmitter bit period using the procedure defined in Section 5.2.
+
+After the transmitter bit period has been determined, the receiver shall sample the third synchronization bit at the temporal midpoint of its bit period. The third synchronization bit remains part of the Synchronization Pattern and shall not be interpreted as payload data.
+
+The sampled value of the third synchronization bit shall be logical HIGH. If the sampled value is logical LOW, synchronization shall be considered unsuccessful, the current frame shall be discarded, and the receiver shall perform the recovery procedure defined in Section 6.8.
+
+A successfully validated Synchronization Pattern completes the synchronization procedure. The receiver shall immediately proceed to reception of the Word Size field.
+
+> **Implementation Note (Non-Normative)**  
+> Receiver implementations will require a finite amount of time to calculate the transmitter bit period after detecting T<sub>R2</sub>. Implementations are therefore encouraged to compensate for this processing latency so that the third synchronization bit is sampled as close as possible to the temporal midpoint of its bit period.
+>
+> One possible implementation measures the processing latency, T<sub>calc</sub>, and changes the wait  until sample by
+>
+> $$
+> T_{wait}=\frac{T_{bit}}{2}-T_{calc}
+> $$
+>
+> resulting in an effective sampling instant of
+>
+> $$
+> T_{sample}=T_{R2}+\frac{T_{bit}}{2}.
+> $$
+>
+![T_wait Diagram](docs/diagrams/T_wait.svg)
+>
+> This procedure is informative only and is not required for protocol compliance. Any implementation that samples the third synchronization bit at its temporal midpoint is considered compliant with this specification.
+
 ## 6.4 Word Size Reception
+
+## 6.4 Word Size Reception
+
+After successful synchronization, the receiver shall establish a continuous sampling sequence with a period equal to `T_bit`. The sampling sequence shall remain uninterrupted for the entire duration of the current frame.
+
+Let `T_S3` be the instant at which the third Synchronization Pattern bit is sampled. The subsequent sampling instants shall be:
+
+```text
+T_W0 = T_S3 + T_bit
+T_W1 = T_W0 + T_bit
+T_W2 = T_W1 + T_bit
+T_W3 = T_W2 + T_bit
+```
+
+The samples obtained at `T_W0`, `T_W1`, `T_W2`, and `T_W3` shall correspond to the four bits of the Word Size field, received most significant bit first (MSB first).
+
+The receiver shall not perform any additional edge detection or synchronization while receiving the Word Size field. The previously recovered `T_bit` shall be used for all four sampling instants.
+
+After the fourth Word Size bit has been sampled, the receiver shall decode the received 4-bit value and determine the number of bits that shall be sampled for the subsequent Word field. Reception shall then continue with the next sampling instant, which corresponds to the most significant bit of the Word field.
+
+> **Implementation Note (Non-Normative)**  
+> Transmitting the Word Size field most significant bit (MSB) first naturally supports implementations based on shift registers. As each received bit is shifted into the register, the final binary value is reconstructed directly after reception of the fourth bit, eliminating the need for additional bit reordering before decoding the field value.
+
 
 ## 6.5 Word Reception
 
