@@ -393,7 +393,7 @@ A successfully validated Synchronization Pattern completes the synchronization p
 > T_{sample}=T_{R2}+\frac{T_{bit}}{2}.
 > $$
 >
-![T_wait Diagram](docs/diagrams/T_wait.svg)
+![T_wait Diagram](../diagrams/T_wait.svg)
 >
 > This procedure is informative only and is not required for protocol compliance. Any implementation that samples the third synchronization bit at its temporal midpoint is considered compliant with this specification.
 
