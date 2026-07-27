@@ -320,21 +320,16 @@ Whenever a valid Start condition is detected, the receiver shall initiate a new 
 
 Each received frame shall be processed independently. The receiver shall not retain synchronization parameters, timing information, or any other frame-specific information after frame reception has completed. The receiver shall not keep the clock timins and other informations in order to allow the transmitter to change any of these parameters at any given time, without having to specify again to the receiver on what conditions it is working at.
 
-For every received frame, the receiver shall perform the following operations in the specified order:
-
-1. Detect the Start field.
-2. Recover the transmitter bit period from the Synchronization Pattern.
-3. Receive and decode the Word Size field.
-4. Receive the Word field.
-5. If parity verification is enabled, verify the received parity.
-6. Verify the Stop field.
-7. Complete frame reception.
+For every received frame, the receiver shall perform a complete reception procedure consisting of Start detection, transmitter bit period recovery through the Synchronization Pattern, Word Size reception and decoding, Word reception, optional parity verification, Stop field verification, and frame reception completion.
 
 The receiver shall treat every received frame as one of the following:
 
-- Valid;
-- Valid with parity error;
-- Invalid.
+| Frame Stats | Description |
+|---|---|
+| Valid Frame | Frame successfully received with no errors detected.|
+| Parity Error| Frame successfully received, but parity verification failed. The frame structure remains valid, although the payload integrity cannot be guaranteed.|
+| Stop Error | The Stop field was not received or did not contain the expected logical HIGH level. The frame shall be considered structurally invalid and discarded. |
+| Synchronization Error | Synchronization failed because the Synchronization Pattern could not be successfully recovered or validated. The frame shall be discarded. |
 
 A frame shall be considered **Valid** when all mandatory fields are successfully received and verified.
 
@@ -421,10 +416,53 @@ After the fourth Word Size bit has been sampled, the receiver shall decode the r
 > **Implementation Note (Non-Normative)**  
 > Transmitting the Word Size field most significant bit (MSB) first naturally supports implementations based on shift registers. As each received bit is shifted into the register, the final binary value is reconstructed directly after reception of the fourth bit, eliminating the need for additional bit reordering before decoding the field value.
 
-
 ## 6.5 Word Reception
 
+Upon completion of the Word Size reception procedure, the receiver shall continue sampling the DATA line at intervals of one transmitter bit period. The sampling interval established during synchronization shall remain unchanged for the remainder of the current frame.
+
+The first sampling instant following the Word Size field shall correspond to the most significant bit (MSB) of the Word field.
+
+The receiver shall receive exactly the number of bits specified by the decoded Word Size value. 
+
+Reception of the Word field shall be considered complete only after the exact number of bits specified by the Word Size field has been received.
+
+The reconstructed Word shall not be considered valid until reception of the final Word bit has been completed.
+
+Premature termination of the Word field shall constitute a frame error. If reception of the Word field is interrupted before the expected number of bits has been received, the receiver shall discard the current frame and perform the recovery procedure defined in Section 6.8.
+
+Upon successful reception of the complete Word field, the receiver shall immediately proceed to the Parity Verification procedure defined in Section 6.6.
+
+> **Implementation Note (Non-Normative)**  
+> Parity may be accumulated concurrently with Word reception. One possible implementation maintains a counter of logical HIGH (`1`) bits as they are received, allowing parity verification to be performed immediately after reception of the Parity field without requiring a second pass over the received Word. More on Section 6.6
+
 ## 6.6 Parity Verification
+
+The receiver shall continue sampling the DATA line at the established bit period until the Parity Enable (P_EN) bit and the Parity bit have been received.
+
+The P_EN bit shall be sampled first, immediately followed by the Parity bit. Both bits shall be stored until completion of the current frame reception.
+
+Reception of the Parity field shall not interrupt or modify the receiver sampling sequence established during synchronization.
+
+If the received P_EN bit is logical LOW, the receiver shall disable parity verification for the current frame. The received Parity bit shall be ignored, although it shall still be sampled in order to preserve the frame timing.
+
+If the received P_EN bit is logical HIGH, the receiver shall enable parity verification for the current frame.
+
+Following successful reception and verification of the Stop field, the receiver shall compare the received Parity bit against the parity value calculated from the received Word field.
+
+If both values are identical, parity verification shall be considered successful.
+
+If the values differ, the receiver shall assign the Frame Status "Parity Error" to the received frame.
+
+A parity mismatch shall not invalidate the received frame. Frame reception shall still be considered complete, and the received payload may remain available for application-specific processing.
+
+> **Implementation Note (Non-Normative)**  
+> Implementations may calculate parity after complete reception of the Word field or accumulate the parity value concurrently during Word reception.
+
+> **Implementation Note (Non-Normative)**  
+> A common implementation maintains a counter of logical HIGH (`1`) bits as each Word bit is received. Upon completion of the Word field, the expected parity value is immediately available, requiring only a single comparison with the received Parity bit after the Stop field has been verified.
+
+> **Implementation Note (Non-Normative)**  
+> Hardware implementations may replace the population counter with a single parity accumulator that toggles its state whenever a logical HIGH (`1`) bit is received, producing the expected even parity without explicitly counting the number of set bits.
 
 ## 6.7 Stop Verification
 
